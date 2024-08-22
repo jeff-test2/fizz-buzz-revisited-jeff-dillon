@@ -13,7 +13,14 @@
 # If the number is not evenly divisible by 3 or 5, the function returns the number.
 def fizzbuzz(number : int=0) -> str:
     # TODO: add your code here
-    return str(number)
+    if(number % 3 == 0 and number % 5 == 0):
+        return "fizzbuzz"
+    elif(number % 5 == 0):
+        return "buzz"
+    elif(number % 3 == 0):
+        return "fizz"
+    else:
+        return str(number)
 
 # Add your code to the main() function.
 # The main() function is run when the script is called from the command line.
@@ -21,7 +28,8 @@ def fizzbuzz(number : int=0) -> str:
 # print the result.
 def main():
     # TODO: add your code here
-    print(fizzbuzz())
+    for number in range(1,101):
+        print(fizzbuzz(number))
 
 if __name__ == "__main__":
     main()
