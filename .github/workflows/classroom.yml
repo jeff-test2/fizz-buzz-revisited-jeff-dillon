@@ -1,0 +1,29 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: FizzBuzz Auto Grading
+      id: fizzbuzz-auto-grading
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: FizzBuzz Auto Grading
+        setup-command: ''
+        command: python test_fizzbuzz.py
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        FIZZBUZZ-AUTO-GRADING_RESULTS: "${{steps.fizzbuzz-auto-grading.outputs.result}}"
+      with:
+        runners: fizzbuzz-auto-grading
